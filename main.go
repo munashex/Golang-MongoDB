@@ -4,6 +4,7 @@ import (
 	"fmt" 
 	"go.mongodb.org/mongo-driver/mongo" 
 	"go.mongodb.org/mongo-driver/mongo/options" 
+	"go.mongodb.org/mongo-driver/mongo/readpref" 
 ) 
 func main() { 
 	ctx := context.TODO() 
@@ -16,4 +17,8 @@ func main() {
 
 	defer client.Disconnect(ctx) 
 	fmt.Printf("%T\n", client)  
+	
+	if err:= client.Ping(ctx, readpref.Primary()); err != nil {
+		panic(err)
+	}
 }
