@@ -18,7 +18,18 @@ func main() {
 	defer client.Disconnect(ctx) 
 	fmt.Printf("%T\n", client)  
 	
+	//pinging the mongoDB server
 	if err:= client.Ping(ctx, readpref.Primary()); err != nil {
 		panic(err)
 	}
+	
+	//list the current databases in mongodb server 
+	
+	databases, err:= client.ListDatabaseNames(ctx, bson.M{}) 
+	if err != nil {
+		panic(err)
+	}
+	
+	fmt.Println(databases)
+	
 }
